@@ -14,5 +14,6 @@ class GuestsController < ApplicationController
         guest = Guest.find_or_create_by(name: params[:name])
         guest.chats.build({message: params[:message]})
         guest.save
+        render json: guest, include: [:chats]
     end 
 end

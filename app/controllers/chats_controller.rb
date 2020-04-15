@@ -11,7 +11,7 @@ class ChatsController < ApplicationController
 
     def create 
        chat = Chat.create(message: params[:message])
-       chat.build_image({src: params[:src]}) if !params[:src].nil?
+       chat.img = params[:img] if !params[:img].nil?
     end
 
     def edit 

@@ -13,8 +13,13 @@ class ChatsController < ApplicationController
         chat = Chat.new(message: chat_params[:message], img: chat_params[:img])
          if !chat_params[:name].nil?
             exsitingGuest = Guest.find_by(name: chat_params[:name])
-           !exsitingGuest.nil? ? (exsitingGuest.chats << chat ) : (chat.build_guest({name: chat_params[:name]}) && chat.save)
-         end 
+           if !exsitingGuest.nil? 
+            exsitingGuest.chats << chat 
+           else 
+             chat.build_guest({name: chat_params[:name]})
+             chat.save
+           end
+         end
        render json: chat
     end
 

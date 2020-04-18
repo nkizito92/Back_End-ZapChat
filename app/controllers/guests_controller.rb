@@ -6,14 +6,17 @@ class GuestsController < ApplicationController
     end 
 
     def show 
-        guest = Guest.find_by_id(params[:id])
+        guest = Guest.find_by_id(guest_params[:id])
         render json: guest, include: [:chats]
     end
 
-    def create 
-        guest = Guest.find_or_create_by(name: params[:name])
-        guest.chats.build({message: params[:message]})
-        guest.save
+    def update 
+        guest = Guest.find_by_id(guest_params[:id])
+        guest.update(name: guest_params[:name])
         render json: guest, include: [:chats]
     end 
+    private 
+    def guest_params
+        params.require("guest").permit(:name, :id)
+    end
 end

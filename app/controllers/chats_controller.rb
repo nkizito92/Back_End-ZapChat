@@ -1,12 +1,13 @@
 class ChatsController < ApplicationController
     def index 
         chats = Chat.all 
-        render json: chats, include: [:guest]
+        render json: chats, include: [:guest, :comments]
     end 
 
     def show 
+        # comments model needs to belong to chat 
         chat = Chat.find_by_id(params[:id])
-        render json: chat, include: [:guest]
+        render json: chat, include: [:guest, :comments]
     end
 
     def create   
@@ -24,23 +25,23 @@ class ChatsController < ApplicationController
     end
 
     def edit 
-        chat = Chat.find_by_id(params[:id])
+        chat = Chat.find_by_id(chat_params[:id])
         render json: chat
     end 
 
     def update 
-        chat = Chat.find_by_id(params[:id])
-        chat.update(message: params[:message])
+        chat = Chat.find_by_id(chat_params[:id])
+        chat.update(message: chat_params[:message])
     end 
 
 
     def destroy 
-        chat = Chat.find_by_id(params[:id])
+        chat = Chat.find_by_id(chat_params[:id])
         chat.delete
     end
 
     private 
     def chat_params
-        params.require("chat").permit(:message, :img, :name)
+        params.require("chat").permit(:id, :message, :img, :name)
     end
 end

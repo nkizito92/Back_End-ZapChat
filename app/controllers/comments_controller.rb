@@ -1,19 +1,17 @@
 class CommentsController < ApplicationController
+    def index 
+        comments = Comment.all 
+        render json: comments, include: [:chat, :guest]
+    end
     def show 
         comment = Comment.find_by_id(comment_params[:id])
         render json: comment, include: [:chat, :guest]
     end 
 
     def create
-        if !comment_params[:img]nil?
-            comment = Comment.new(img: comment_params[:img])
-        elsif !comment_params[:img]nil? && !comment_params[:text]nil?
-            comment = Comment.new(img: comment_params[:img], text: comment_params[:text])
-        else 
-            comment = Comment.new(text: comment_params[:text]
-        end
-        comment.build_guest({:name comment_params[:name]})
-        comment.save 
+            comment = Comment.new(img: comment_params[:img], text: comment_params[:text], chat_id: comment_params[:chatId])
+            comment.build_guest({name: comment_params[:name]})
+            comment.save
         render json: comment 
     end
 
@@ -26,9 +24,10 @@ class CommentsController < ApplicationController
     def destory 
         comment = Comment.find_by_id(comment_params[:id])
         comment.delete 
-    end 
+    end
+    
     private
     def comment_params
-        params.require("comment").permit(:id, :text, :img, :name)
+        params.require("comment").permit(:id, :text, :img, :name, :chatId)
     end
 end

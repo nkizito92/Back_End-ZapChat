@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_162428) do
+ActiveRecord::Schema.define(version: 2020_04_20_161213) do
 
   create_table "chats", force: :cascade do |t|
     t.string "message"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 2020_04_14_162428) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guest_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "text"
+    t.string "img"
+    t.integer "chat_id"
+    t.integer "guest_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "guests", force: :cascade do |t|

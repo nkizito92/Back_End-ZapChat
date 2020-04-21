@@ -5,9 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-jake = Guest.new(name: "Jake")
-chat = Chat.create(message: "Hello, there")
-
+jake = Guest.create(name: "Jake")
+chat = Chat.new(message: "Hello, there", img: "https://cdn.pixabay.com/photo/2015/05/28/23/12/auto-788747__480.jpg")
 jake.chats.push(chat)
 jake.save
 

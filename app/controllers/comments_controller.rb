@@ -21,11 +21,11 @@ class CommentsController < ApplicationController
         render json: comment, include: [:chat, :guest]
     end 
 
-    def destory 
-        comment = Comment.find_by_id(comment_params[:id])
+    def destroy 
+        comment = Comment.find_by_id(params[:id])
         comment.delete 
     end
-    
+
     private
     def comment_params
         params.require("comment").permit(:id, :text, :img, :name, :chatId)

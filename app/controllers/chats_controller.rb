@@ -5,7 +5,6 @@ class ChatsController < ApplicationController
     end 
 
     def show 
-        # comments model needs to belong to chat 
         chat = Chat.find_by_id(params[:id])
         render json: chat, include: [:guest, :comments]
     end
@@ -36,7 +35,12 @@ class ChatsController < ApplicationController
 
 
     def destroy 
-        chat = Chat.find_by_id(chat_params[:id])
+        chat = Chat.find_by_id(params[:id])
+        guestIds = chat.comments.map {|gues| gues.guest_id}
+        allGuest = guestIds.map {|ids| Guest.find_by_id(ids)}
+        chat.guest.delete 
+        allGuest.map {|g| g.delete}
+        chat.comments.delete_all
         chat.delete
     end
 

@@ -9,21 +9,24 @@ class CommentsController < ApplicationController
     end 
 
     def create
-            comment = Comment.new(img: comment_params[:img], text: comment_params[:text], chat_id: comment_params[:chatId])
-            comment.build_guest({name: comment_params[:name]})
-            comment.save
-        render json: comment 
+        comment = Comment.new(img: comment_params[:img], text: comment_params[:text], chat_id: comment_params[:chatId])
+        comment.build_guest({name: comment_params[:name]})
+        comment.save
+        render json: comment, include: [:chat, :guest]
     end
 
     def update
         comment = Comment.find_by_id(comment_params[:id])
-        comment.update(text: comment_params[:text])
+        comment.update(text: comment_params[:text], img: comment_params[:img])
         render json: comment, include: [:chat, :guest]
     end 
 
     def destroy 
         comment = Comment.find_by_id(params[:id])
+        guest = Guest.find_by_id(comment.guest_id)
+        guest.delete
         comment.delete 
+        render json: {id: params[:id]}
     end
 
     private

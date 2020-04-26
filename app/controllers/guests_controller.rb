@@ -10,6 +10,12 @@ class GuestsController < ApplicationController
         render json: guest, include: [:chats]
     end
 
+    def create 
+        byebug
+        guest = Guest.create(guest_params)
+        render json: guest, include: [:chats]
+    end
+
     def update 
         guest = Guest.find_by_id(guest_params[:id])
         guest.update(name: guest_params[:name])

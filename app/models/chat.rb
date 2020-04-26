@@ -1,4 +1,4 @@
 class Chat < ApplicationRecord
-    has_many :comments, dependent: :delete_all
-    belongs_to :guest, dependent: :delete
+    has_many :comments, dependent: :destroy
+    belongs_to :guest
 end

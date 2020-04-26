@@ -1,4 +1,4 @@
 class Comment < ApplicationRecord
     belongs_to :chat
-    belongs_to :guest, dependent: :delete
+    belongs_to :guest
 end

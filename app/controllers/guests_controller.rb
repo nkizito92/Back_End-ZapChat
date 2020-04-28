@@ -11,7 +11,6 @@ class GuestsController < ApplicationController
     end
 
     def create 
-        byebug
         guest = Guest.create(guest_params)
         render json: guest, include: [:chats]
     end

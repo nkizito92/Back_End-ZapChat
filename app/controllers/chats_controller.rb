@@ -1,6 +1,5 @@
 class ChatsController < ApplicationController
     before_action :sleeping, only: [:create, :destroy]
-    before_action :found_chat, only: [:show, :update]
     
     def index 
         chats = Chat.all 
@@ -8,6 +7,7 @@ class ChatsController < ApplicationController
     end 
 
     def show 
+        chat = Chat.find_by_id(chat_params[:id])
         render json: chat, include: [:guest, :comments]
     end
 
@@ -19,7 +19,8 @@ class ChatsController < ApplicationController
     end 
 
     def update 
-        chat.update(message: chat_params[:message])
+        chat = Chat.find_by_id(chat_params[:id])
+        chat.guest.update(name: chat_params[:name])
         render json: chat, include: [:guest, :comments]
     end 
 
@@ -36,10 +37,6 @@ class ChatsController < ApplicationController
     end
 
     private 
-    def found_chat
-        chat = Chat.find_by_id(chat_params[:id])
-    end
-
     def sleeping
         sleep(2.2)
     end

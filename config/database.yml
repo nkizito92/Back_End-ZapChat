@@ -16,7 +16,7 @@
   development:
   adapter: postgresql
   encoding: unicode
-  database: demo_test_development
+  database: backEnd
   pool: 5
   username: kizito
   password:
@@ -36,7 +36,7 @@
 test:
   adapter: postgresql
   encoding: unicode
-  database: demo_test_test
+  database: backEnd
   pool: 5
   username: kizito
   password:

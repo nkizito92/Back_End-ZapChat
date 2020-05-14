@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     end 
 
     def show 
-        exiting = current_user
+        render json: current_user, include [:chats]
     end 
     
     def create 

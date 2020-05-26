@@ -5,7 +5,10 @@ class CreateComments < ActiveRecord::Migration[6.0]
       t.string :img
       t.integer :chat_id
       t.integer :guest_id
-      
+      t.integer :like
+      t.integer :dislike
+      t.integer :laugh
+      t.integer :angry
       t.timestamps
     end
   end

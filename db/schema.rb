@@ -14,31 +14,31 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
 
   create_table "chats", force: :cascade do |t|
     t.string "message"
+    t.string "guest_id"
     t.string "img"
+    t.integer "like"
+    t.integer "dislike"
+    t.integer "laugh"
+    t.integer "angry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.string "title"
   end
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
     t.string "img"
     t.integer "chat_id"
-    t.integer "user_id"
+    t.integer "guest_id"
+    t.integer "like"
+    t.integer "dislike"
+    t.integer "laugh"
+    t.integer "angry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "guests", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

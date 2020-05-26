@@ -3,32 +3,32 @@ class ChatsController < ApplicationController
     
     def index 
         chats = Chat.all 
-        render json: chats, include: [:guest, :comments, :likables]
+        render json: chats, include: [:guest, :comments]
     end 
 
     def show 
         chat = Chat.find_by_id(chat_params[:id])
-        render json: chat, include: [:guest, :comments, :likables]
+        render json: chat, include: [:guest, :comments]
     end
 
     def create   
-        byebug
-        chat = Chat.new(guest_id: chat_params[:guest_id], message: chat_params[:message], img: chat_params[:img])
-        # chat.build_guest({name: chat_params[:name]})
+        # byebug
+        chat = Chat.new(message: chat_params[:message], img: chat_params[:img])
+        chat.build_guest({name: chat_params[:name]})
         chat.save
-        render json: chat,  include: [:guest, :comments, :likables]
+        render json: chat,  include: [:guest, :comments]
     end 
 
     def update 
         chat = Chat.find_by_id(chat_params[:id])
         chat.guest.update(name: chat_params[:name])
-        render json: chat, include: [:guest, :comments, :likables]
+        render json: chat, include: [:guest, :comments]
     end 
 
 
     def destroy 
         chat = Chat.find_by_id(params[:id])
-        guestIds = chat.comments.map {|gues| gues.guest_id}
+        guestIds = chat.comments.map {|gues| gues.name}
         allGuest = guestIds.map {|ids| Guest.find_by_id(ids)}
         chat.guest.delete
         allGuest.map {|g| g.delete}
@@ -43,6 +43,6 @@ class ChatsController < ApplicationController
     end
 
     def chat_params
-        params.require("chat").permit(:id, :message, :img, :guest_id)
+        params.require("chat").permit(:id, :message, :img, :name)
     end
 end

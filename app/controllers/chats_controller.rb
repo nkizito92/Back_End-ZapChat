@@ -13,7 +13,7 @@ class ChatsController < ApplicationController
 
     def create   
         byebug
-        chat = Chat.new(title: chat_params[:title], message: chat_params[:message], img: chat_params[:img])
+        chat = Chat.new(guest_id: chat_params[:guest_id], message: chat_params[:message], img: chat_params[:img])
         # chat.build_guest({name: chat_params[:name]})
         chat.save
         render json: chat,  include: [:guest, :comments, :likables]
@@ -43,6 +43,6 @@ class ChatsController < ApplicationController
     end
 
     def chat_params
-        params.require("chat").permit(:id, :message, :img, :title)
+        params.require("chat").permit(:id, :message, :img, :guest_id)
     end
 end

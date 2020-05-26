@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :likables
   resources :comments
   resources :chats
   resources :guests

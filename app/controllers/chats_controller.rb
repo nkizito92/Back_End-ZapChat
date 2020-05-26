@@ -3,25 +3,25 @@ class ChatsController < ApplicationController
     
     def index 
         chats = Chat.all 
-        render json: chats, include: [:guest, :comments]
+        render json: chats, include: [:guest, :comments, :likables]
     end 
 
     def show 
         chat = Chat.find_by_id(chat_params[:id])
-        render json: chat, include: [:guest, :comments]
+        render json: chat, include: [:guest, :comments, :likables]
     end
 
     def create   
         chat = Chat.new(message: chat_params[:message], img: chat_params[:img])
         chat.build_guest({name: chat_params[:name]})
         chat.save
-        render json: chat,  include: [:guest, :comments]
+        render json: chat,  include: [:guest, :comments, :likables]
     end 
 
     def update 
         chat = Chat.find_by_id(chat_params[:id])
         chat.guest.update(name: chat_params[:name])
-        render json: chat, include: [:guest, :comments]
+        render json: chat, include: [:guest, :comments, :likables]
     end 
 
 

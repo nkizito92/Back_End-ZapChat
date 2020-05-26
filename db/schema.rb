@@ -17,20 +17,28 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
     t.string "img"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "guest_id"
+    t.integer "user_id"
+    t.string "title"
   end
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
     t.string "img"
     t.integer "chat_id"
-    t.integer "guest_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "guests", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

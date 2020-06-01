@@ -5,7 +5,6 @@ class CreateChats < ActiveRecord::Migration[6.0]
       t.string :guest_id
       t.string :img
       t.integer :like
-      t.integer :dislike
       t.integer :laugh
       t.integer :angry
       t.timestamps

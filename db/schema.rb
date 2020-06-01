@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
     t.string "guest_id"
     t.string "img"
     t.integer "like"
-    t.integer "dislike"
     t.integer "laugh"
     t.integer "angry"
     t.datetime "created_at", precision: 6, null: false
@@ -30,7 +29,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
     t.integer "chat_id"
     t.integer "guest_id"
     t.integer "like"
-    t.integer "dislike"
     t.integer "laugh"
     t.integer "angry"
     t.datetime "created_at", precision: 6, null: false

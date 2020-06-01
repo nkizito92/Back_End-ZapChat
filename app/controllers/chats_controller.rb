@@ -12,16 +12,17 @@ class ChatsController < ApplicationController
     end
 
     def create   
-        # byebug
-        chat = Chat.new(message: chat_params[:message], img: chat_params[:img])
+        chat = Chat.new(likeChat_params)
         chat.build_guest({name: chat_params[:name]})
         chat.save
         render json: chat,  include: [:guest, :comments]
     end 
 
     def update 
-        chat = Chat.find_by_id(chat_params[:id])
-        chat.guest.update(name: chat_params[:name])
+        # byebug
+        chat = Chat.find_by_id(params[:id])
+        chat.update(like: params[:like], laugh: params[:laugh], angry: params[:angry])
+        # chat.guest.update(name: chat_params[:name])
         render json: chat, include: [:guest, :comments]
     end 
 
@@ -43,6 +44,10 @@ class ChatsController < ApplicationController
     end
 
     def chat_params
-        params.require("chat").permit(:id, :message, :img, :name)
+        params.require("chat").permit(:id, :message, :img, :name, :like, :laugh, :angry)
+    end
+
+    def likeChat_params
+        params.require("chat").permit(:id, :message, :img, :like, :laugh, :angry)
     end
 end

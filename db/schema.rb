@@ -12,6 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_04_20_161213) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "adminpack"
+  enable_extension "plpgsql"
+
   create_table "chats", force: :cascade do |t|
     t.string "message"
     t.string "guest_id"

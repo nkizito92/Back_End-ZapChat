@@ -9,16 +9,15 @@ class CommentsController < ApplicationController
     end 
 
     def create
-        comment = Comment.new(img: comment_params[:img], text: comment_params[:text], chat_id: comment_params[:chatId], like: comment_params[:like])
-        comment.build_guest({name: comment_params[:name]})
+        comment = Comment.new(img: likeComment_params[:img], text: likeComment_params[:text], chat_id: likeComment_params[:chatId], like: likeComment_params[:like], laugh: likeComment_params[:laugh], angry: likeComment_params[:angry])
+        comment.build_guest({name: likeComment_params[:name]})
         comment.save
         render json: comment, include: [:chat, :guest]
     end
 
     def update
         comment = Comment.find_by_id(params[:id])
-        comment.update(text: comment_params[:text], img: comment_params[:img])
-        comment.update(like: params[:like]) if !params[:like].nil?
+        comment.update(text: comment_params[:text], img: comment_params[:img], like: params[:like], laugh: params[:laugh], angry: params[:angry])
         render json: comment, include: [:chat, :guest]
     end
 
@@ -33,7 +32,7 @@ class CommentsController < ApplicationController
     private
 
     def likeComment_params
-        params.require("comment").permit(:id, :text, :img, :chatId, :like, :laugh, :dislike, :angry,:chat_id, :guest_id, :created_at, :updated_at, :chat, :guest)
+        params.require("comment").permit(:id, :text, :img, :chatId, :name,:like, :laugh, :angry,:chat_id, :guest_id, :created_at, :updated_at, :chat, :guest)
     end
     def comment_params
         params.require("comment").permit(:id, :text, :img, :name, :chatId, :like, :laugh, :dislike, :angry,:chat_id, :guest_id, :created_at, :updated_at, :chat, :guest)

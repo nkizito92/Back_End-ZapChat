@@ -6,11 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 jake = Guest.create(name: "Jake")
-chat = Chat.new(message: "Hello, there", img: "https://cdn.pixabay.com/photo/2015/05/28/23/12/auto-788747__480.jpg")
+chat = Chat.new(message: "Hello, there", img: "https://cdn.pixabay.com/photo/2015/05/28/23/12/auto-788747__480.jpg", like: 0, laugh: 0, angry: 0)
 jake.chats.push(chat)
 jake.save
-
-joe = Guest.new(name: "Joe")
-joe.chats.build({message: "Stop Right there"})
-joe.save 
 

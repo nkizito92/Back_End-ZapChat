@@ -16,6 +16,13 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
   enable_extension "adminpack"
   enable_extension "plpgsql"
 
+  create_table "buttons", force: :cascade do |t|
+    t.string "name"
+    t.string "sound"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "chats", force: :cascade do |t|
     t.string "message"
     t.string "guest_id"
@@ -37,6 +44,13 @@ ActiveRecord::Schema.define(version: 2020_04_20_161213) do
     t.integer "angry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
   end
 
   create_table "guests", force: :cascade do |t|

@@ -16,10 +16,12 @@ class GuestsController < ApplicationController
     end
 
     def update 
+    byebug
         guest = Guest.find_by_id(guest_params[:id])
         guest.update(name: guest_params[:name])
         render json: guest, include: [:chats]
     end 
+    
     private 
     def guest_params
         params.require("guest").permit(:name, :id)

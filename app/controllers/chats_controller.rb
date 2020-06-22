@@ -20,9 +20,13 @@ class ChatsController < ApplicationController
 
     def update 
         # byebug
-        chat = Chat.find_by_id(params[:id])
-        chat.update(like: params[:like], laugh: params[:laugh], angry: params[:angry])
-        # chat.guest.update(name: chat_params[:name])
+        if !params[:chatId].nil?
+            chat = Chat.find_by_id(params[:chatId][:id])
+            chat.guest.update(name: params[:chatId][:name])
+        else
+            chat = Chat.find_by_id(params[:id])
+            chat.update(like: params[:like], laugh: params[:laugh], angry: params[:angry])
+        end 
         render json: chat, include: [:guest, :comments]
     end 
 
